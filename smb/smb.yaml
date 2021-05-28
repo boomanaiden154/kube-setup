@@ -5,10 +5,10 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: linstor-basic-storage-class
+  storageClassName: smb-storage
   resources:
     requests:
-      storage: 20Gi
+      storage: 2500Gi
 ---
 kind: Service
 apiVersion: v1
@@ -17,7 +17,8 @@ metadata:
   labels:
     app: smb-server
 spec:
-  type: LoadBalancer  # use "LoadBalancer" to get a public ip
+  type: LoadBalancer
+  loadBalancerIP: "192.168.1.241"
   selector:
     app: smb-server
   ports:
@@ -40,8 +41,7 @@ spec:
       labels:
         app: smb-server
     spec:
-      nodeSelector:
-        "kubernetes.io/os": linux
+      nodeName: k3s-node2
       containers:
         - name: smb-server
           image: andyzhangx/samba:win-fix

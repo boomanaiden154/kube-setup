@@ -1,0 +1,10 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: "smb-storage"
+provisioner: linstor.csi.linbit.com
+parameters:
+  autoPlace: "1"
+  storagePool: "hdd"
+  resourceGroup: "smb-storage"
+reclaimPolicy: Delete
