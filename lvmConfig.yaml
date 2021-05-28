@@ -1,8 +1,0 @@
-operator:
-  satelliteSet:
-    storagePools:
-      lvmPools:
-        - name: hdd
-          volumeGroup: hdd
-        - name: ssd
-          volumeGroup: ssd
