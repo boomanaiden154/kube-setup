@@ -17,6 +17,11 @@ global:
     # Configure the clone link in the UI to include the high-numbered NodePort
     # value from below (`gitlab.gitlab-shell.service.nodePort`)
     port: 32022
+  appConfig:
+    dependencyProxy:
+        enabled: true
+        bucket: gitlab-dependency-proxy
+        connection: {}
 nginx-ingress:
   enabled: false
 # Don't use certmanager, we'll self-sign
