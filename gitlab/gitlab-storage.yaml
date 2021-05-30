@@ -7,4 +7,5 @@ parameters:
   autoPlace: "2"
   storagePool: "ssd"
   resourceGroup: "gitlab-storage"
+allowVolumeExpansion: true
 reclaimPolicy: Retain
