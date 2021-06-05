@@ -1,8 +1,10 @@
 operator:
   satelliteSet:
     storagePools:
-      lvmPools:
+      lvmThinPools:
         - name: hdd
+          thinVolume: piraeus-thin
           volumeGroup: hdd
         - name: ssd
+          thinVolume: piraeus-thin
           volumeGroup: ssd
