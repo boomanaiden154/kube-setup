@@ -1,0 +1,10 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: "theia-storage"
+provisioner: linstor.csi.linbit.com
+parameters:
+  autoPlace: "2"
+  storagePool: "ssd"
+  resourceGroup: "theia-storage"
+reclaimPolicy: Delete

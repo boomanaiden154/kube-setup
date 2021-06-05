@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: theia-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: theia-storage
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: theia
+spec:
+  selector:
+    matchLabels:
+      app: theia
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: theia
+    spec:
+      containers:
+      - image: theiaide/theia:latest
+        imagePullPolicy: Always
+        name: theia
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+          - mountPath: /home/project
+            name: theia-data
+      volumes:
+        - name: theia-data
+          persistentVolumeClaim:
+            claimName: theia-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: theia
+spec:
+  ports:
+  - port: 80
+    targetPort: 3000
+    protocol: TCP
+  selector:
+    app: theia
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: theia
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: basic-auth
+    nginx.ingress.kubernetes.io/auth-realm: "Authentication Required"
+spec:
+  tls:
+  - hosts:
+    - theia.aidengrossman.com
+    secretName: theia
+  rules:
+  - host: theia.aidengrossman.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: theia
+            port:
+              number: 80      
