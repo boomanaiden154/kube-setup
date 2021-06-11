@@ -24,6 +24,9 @@ spec:
       labels:
         app: theia
     spec:
+      securityContext:
+        fsGroup: 1001
+        fsGroupChangePolicy: "OnRootMismatch"
       containers:
       - image: theiaide/theia:latest
         imagePullPolicy: Always
