@@ -28,7 +28,7 @@ spec:
         fsGroup: 1001
         fsGroupChangePolicy: "OnRootMismatch"
       containers:
-      - image: theiaide/theia:latest
+      - image: theiaide/theia-full:latest
         imagePullPolicy: Always
         name: theia
         ports:
