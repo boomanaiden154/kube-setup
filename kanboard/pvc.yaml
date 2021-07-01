@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: kanboard-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: kanboard-storage
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: kanboard-plugins
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: kanboard-storage
+  resources:
+    requests:
+      storage: 5Gi
