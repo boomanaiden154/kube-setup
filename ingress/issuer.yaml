@@ -12,3 +12,13 @@ spec:
     - http01:
         ingress:
           class: nginx
+    - dns01:
+        cloudflare:
+          email: agrossman154@yahoo.com
+          apiTokenSecretRef:
+            name: cloudflare-apikey-secret
+            key: apikey
+      selector:
+        dnsNames:
+          - '*.pages.aidengrossman.com'
+          - 'pages.aidengrossman.com'
