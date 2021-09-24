@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webdav
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - webdav.aidengrossman.com
+    secretName: webdav
+  rules:
+  - host: webdav.aidengrossman.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: webdav
+            port:
+              number: 80

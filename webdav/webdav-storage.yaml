@@ -1,0 +1,11 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: "webdav-storage"
+provisioner: linstor.csi.linbit.com
+parameters:
+  autoPlace: "2"
+  storagePool: "hdd"
+  resourceGroup: "webdav-storage"
+allowVolumeExpansion: true
+reclaimPolicy: Delete
