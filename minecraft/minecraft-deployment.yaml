@@ -16,14 +16,12 @@ spec:
       - name: minecraft
         image: itzg/minecraft-server
         env:
-          - name: SEED
-            value: "3513702197057683230"
           - name: OPS
             value: boonutbro154
           - name: DIFFICULTY
             value: hard
           - name: VERSION
-            value: "1.17"
+            value: "1.18.1"
           - name: EULA
             value: "TRUE"
         ports:
