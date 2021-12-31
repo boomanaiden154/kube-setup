@@ -12,20 +12,21 @@ spec:
       labels:
         app: minecraft
     spec:
+      nodeName: k3s-node2
       containers:
       - name: minecraft
         image: itzg/minecraft-server
         env:
-          - name: SEED
-            value: "1401629685722313934"
           - name: OPS
-            value: boonutbro154
+            value: hartreefock
           - name: DIFFICULTY
             value: hard
           - name: VERSION
             value: "1.18.1"
           - name: EULA
             value: "TRUE"
+          - name: MEMORY
+            value: "3G"
         ports:
         - containerPort: 25565
         volumeMounts:
