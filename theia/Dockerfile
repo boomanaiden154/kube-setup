@@ -11,4 +11,4 @@ RUN yarn
 RUN yarn theia build
 USER theia
 RUN abuild-keygen -a -i -n
-CMD ["yarn", "theia", "start", "--hostname", "0.0.0.0", "--port", "8080"]
+CMD ["yarn", "theia", "start", "--hostname", "0.0.0.0", "--port", "8080", "--plugins=local-dir:plugins"]
