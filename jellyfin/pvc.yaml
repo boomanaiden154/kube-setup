@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jellyfin-data
+spec:
+  storageClassName: jellyfin-storage
+  resources:
+    requests:
+      storage: 200Gi
+  accessModes:
+    - ReadWriteMany
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jellyfin-config
+spec:
+  storageClassName: jellyfin-storage
+  resources:
+    requests:
+      storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jellyfin-cache
+spec:
+  storageClassName: jellyfin-storage
+  resources:
+    requests:
+      storage: 50Gi
+  accessModes:
+    - ReadWriteMany

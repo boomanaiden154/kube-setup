@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jellyfin-webdav
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/proxy-body-size: 50000m
+spec:
+  tls:
+  - hosts:
+    - jellyfin-upload.aidengrossman.com
+    secretName: webdav
+  rules:
+  - host: jellyfin-upload.aidengrossman.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: jellyfin-webdav
+            port:
+              number: 80
