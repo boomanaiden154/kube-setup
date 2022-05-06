@@ -1,1 +1,1 @@
-helm install piraeus-op ../piraeus-operator/charts/piraeus -f lvmConfig.yaml --namespace piraeus --create-namespace --set stork.enabled=false --set operator.satelliteSet.kernelModuleInjectionImage="quay.io/piraeusdatastore/drbd9-focal"
+helm upgrade piraeus-op ../piraeus-operator/charts/piraeus -f lvmConfig.yaml --namespace piraeus --create-namespace --set stork.enabled=false --set operator.satelliteSet.kernelModuleInjectionImage="quay.io/piraeusdatastore/drbd9-focal"

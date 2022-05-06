@@ -13,20 +13,26 @@ spec:
         app: jellyfin-webdav
     spec:
       containers:
-      - image: docker.io/bytemark/webdav
+      - image: docker.io/dgraziotin/nginx-webdav-nononsense
         env:
-          - name: AUTH_TYPE
-            value: "Digest"
-          - name: USERNAME
+          - name: WEBDAV_USERNAME
             value: "aiden"
-          - name: PASSWORD
+          - name: WEBDAV_PASSWORD
             value: "asp.net4.5"
+          - name: TIMEOUTS_S
+            value: "1200"
+          - name: CLIENT_MAX_BODY_SIZE
+            value: "50G"
+          - name: PUID
+            value: "82"
+          - name: GUID
+            value: "82"
         imagePullPolicy: IfNotPresent
         name: jellyfin-webdav
         ports:
         - containerPort: 80
         volumeMounts:
-          - mountPath: /var/lib/dav
+          - mountPath: /data
             name: jellyfin-data
       volumes:
         - name: jellyfin-data
