@@ -25,7 +25,7 @@ spec:
         app: vaultwarden
     spec:
       containers:
-      - image: vaultwarden/server:1.21.0
+      - image: vaultwarden/server:1.26.0
         imagePullPolicy: IfNotPresent
         name: vaultwarden
         env:
