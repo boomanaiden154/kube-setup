@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: thelounge
+spec:
+  selector:
+    matchLabels:
+      app: thelounge
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: thelounge
+    spec:
+      containers:
+      - image: thelounge/thelounge
+        imagePullPolicy: Always
+        name: thelounge
+        ports:
+        - containerPort: 9000
+        volumeMounts:
+          - mountPath: /var/opt/thelounge
+            name: thelounge-data
+      volumes:
+        - name: thelounge-data
+          persistentVolumeClaim:
+            claimName: thelounge-data
+
