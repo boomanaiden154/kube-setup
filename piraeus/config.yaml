@@ -1,0 +1,13 @@
+linstorSatelliteConfigurations:
+  - name: satellite-config
+    storagePools:
+      - name: ssd
+        lvmThinPool:
+          volumeGroup: ubuntu-vg
+          thinPool: ssd 
+    podTemplate:
+      spec:
+        initContainers:
+          - name: drbd-module-loader
+            image: quay.io/piraeusdatastore/drbd9-noble
+
