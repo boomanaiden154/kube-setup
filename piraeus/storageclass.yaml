@@ -5,7 +5,7 @@ metadata:
 provisioner: linstor.csi.linbit.com
 parameters:
   autoPlace: "2"
-  storagePool: "sdd"
+  storagePool: "ssd"
   resourceGroup: "ssd-storage"
 reclaimPolicy: Delete
 allowVolumeExpansion: true
