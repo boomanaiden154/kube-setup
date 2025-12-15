@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jellyfin-webdav
+  namespace: jellyfin
+spec:
+  selector:
+    matchLabels:
+      app: jellyfin-webdav
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jellyfin-webdav
+    spec:
+      containers:
+      - image: docker.io/dgraziotin/nginx-webdav-nononsense:1.29.0
+        env:
+          - name: WEBDAV_USERNAME
+            value: "aiden"
+          - name: WEBDAV_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: webdav-user
+                key: password
+          - name: TIMEOUTS_S
+            value: "1200"
+          - name: CLIENT_MAX_BODY_SIZE
+            value: "50G"
+          - name: PUID
+            value: "82"
+          - name: GUID
+            value: "82"
+        imagePullPolicy: IfNotPresent
+        name: jellyfin-webdav
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - mountPath: /data
+            name: jellyfin-data
+      volumes:
+        - name: jellyfin-data
+          persistentVolumeClaim:
+            claimName: jellyfin-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jellyfin-webdav
+  namespace: jellyfin
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+  selector:
+    app: jellyfin-webdav
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: jellyfin-webdav
+  namespace: jellyfin
+spec:
+  parentRefs:
+    - name: envoy-gateway
+      namespace: envoy-gateway-system
+  hostnames:
+    - "jellyfin-upload.aidengrossman.com"
+  rules:
+    - backendRefs:
+        - group: ""
+          kind: Service
+          name: jellyfin-webdav
+          port: 80
+          weight: 1
+      matches:
+        - path:
+            type: PathPrefix
+            value: /

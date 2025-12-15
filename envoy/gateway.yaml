@@ -18,7 +18,7 @@ spec:
             matchExpressions:
               - key: kubernetes.io/metadata.name
                 operator: In
-                values: [vaultwarden, envoy-gateway-system]
+                values: [vaultwarden, envoy-gateway-system, jellyfin]
     - name: https
       protocol: HTTPS
       hostname: bitwarden.aidengrossman.com
@@ -36,3 +36,20 @@ spec:
               - key: kubernetes.io/metadata.name
                 operator: In
                 values: [vaultwarden, envoy-gateway-system]
+    - name: https-jellyfin
+      protocol: HTTPS
+      hostname: jellyfin-upload.aidengrossman.com
+      port: 443
+      tls:
+        mode: Terminate
+        certificateRefs:
+        - kind: Secret
+          name: jellyfin-upload-eg-https
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchExpressions:
+              - key: kubernetes.io/metadata.name
+                operator: In
+                values: [jellyfin, envoy-gateway-system]

@@ -1,9 +1,15 @@
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: jellyfin
+---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: jellyfin-data
+  namespace: jellyfin
 spec:
-  storageClassName: jellyfin-storage
+  storageClassName: ssd-storage
   resources:
     requests:
       storage: 200Gi
@@ -14,8 +20,9 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: jellyfin-config
+  namespace: jellyfin
 spec:
-  storageClassName: jellyfin-storage
+  storageClassName: ssd-storage
   resources:
     requests:
       storage: 5Gi
@@ -26,10 +33,12 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: jellyfin-cache
+  namespace: jellyfin
 spec:
-  storageClassName: jellyfin-storage
+  storageClassName: ssd-storage
   resources:
     requests:
-      storage: 50Gi
+      storage: 10Gi
   accessModes:
     - ReadWriteMany
+
