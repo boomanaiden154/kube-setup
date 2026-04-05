@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: jellyfin
-        image: jellyfin/jellyfin
+        image: jellyfin/jellyfin:10.11.7
         ports:
         - containerPort: 80
         volumeMounts:
