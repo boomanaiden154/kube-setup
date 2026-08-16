@@ -4,6 +4,8 @@ metadata:
   name: jellyfin
   namespace: jellyfin
 spec:
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: jellyfin
