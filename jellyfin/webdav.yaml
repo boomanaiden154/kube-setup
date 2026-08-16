@@ -14,7 +14,7 @@ spec:
         app: jellyfin-webdav
     spec:
       containers:
-      - image: docker.io/dgraziotin/nginx-webdav-nononsense:1.29.0
+      - image: docker.io/dgraziotin/nginx-webdav-nononsense:1.31.3
         env:
           - name: WEBDAV_USERNAME
             value: "aiden"
