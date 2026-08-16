@@ -18,7 +18,7 @@ spec:
             matchExpressions:
               - key: kubernetes.io/metadata.name
                 operator: In
-                values: [vaultwarden, envoy-gateway-system, jellyfin]
+                values: [vaultwarden, envoy-gateway-system, jellyfin, immich]
     - name: https
       protocol: HTTPS
       hostname: bitwarden.aidengrossman.com
@@ -70,3 +70,20 @@ spec:
               - key: kubernetes.io/metadata.name
                 operator: In
                 values: [jellyfin, envoy-gateway-system]
+    - name: https-immich
+      protocol: HTTPS
+      hostname: immich.aidengrossman.com
+      port: 443
+      tls:
+        mode: Terminate
+        certificateRefs:
+        - kind: Secret
+          name: immich-eg-https
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchExpressions:
+              - key: kubernetes.io/metadata.name
+                operator: In
+                values: [immich, envoy-gateway-system]
